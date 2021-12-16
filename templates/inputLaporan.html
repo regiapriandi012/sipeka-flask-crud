@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Input Laporan{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {{ laporan_form.hidden_tag() }}
+        <p>{{ laporan_form.nik.label }}
+        {{ laporan_form.nik() }}</p>
+        <p>{{ laporan_form.nama.label }}
+        {{ laporan_form.nama() }}</p>
+        <p>{{ laporan_form.rt.label }}
+        {{ laporan_form.rt() }}</p>
+        <p>{{ laporan_form.rw.label }}
+        {{ laporan_form.rw() }}</p>
+        <table><tr>
+            <td>{{ laporan_form.jk.label }}</td>
+            {% for btn in laporan_form.jk %}
+                <td>{{ btn() }}</td>
+                <td>{{ btn.label }}</td>
+            {% endfor %}
+        </tr></table>
+        <p>{{ laporan_form.notelf.label }}
+        {{ laporan_form.notelf() }}</p>
+        <table><tr>
+            <td>{{ laporan_form.kategory.label }}</td>
+            {% for btn in laporan_form.kategory %}
+                <td>{{ btn() }}</td>
+                <td>{{ btn.label }}</td>
+            {% endfor %}
+        </tr></table>
+        <p>{{ laporan_form.tanggal.label }}
+        {{ laporan_form.tanggal() }}</p>
+        <p>{{ laporan_form.isilaporan.label }}
+        {{ laporan_form.isilaporan() }}</p>
+        <p>{{ laporan_form.submit() }}</p>
+    </form>
+{% endblock %}

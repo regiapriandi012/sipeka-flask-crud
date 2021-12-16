@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Input KTP{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {{ ktp_form.hidden_tag() }}
+        <p>{{ ktp_form.nik.label }}
+        {{ ktp_form.nik() }}</p>
+        <p>{{ ktp_form.nama.label }}
+        {{ ktp_form.nama() }}</p>
+        <p>{{ ktp_form.ttl.label }}
+        {{ ktp_form.ttl() }}</p>
+        <table><tr>
+            <td>{{ ktp_form.jk.label }}</td>
+            {% for btn in ktp_form.jk %}
+                <td>{{ btn() }}</td>
+                <td>{{ btn.label }}</td>
+            {% endfor %}
+        </tr></table>
+        <p>{{ ktp_form.alamat.label }}
+        {{ ktp_form.alamat() }}</p>
+        <p>{{ ktp_form.rt.label }}
+        {{ ktp_form.rt() }}</p>
+        <p>{{ ktp_form.rw.label }}
+        {{ ktp_form.rw() }}</p>
+        <p>{{ ktp_form.desa.label }}
+        {{ ktp_form.desa() }}</p>
+        <p>{{ ktp_form.kecamatan.label }}
+        {{ ktp_form.kecamatan() }}</p>
+        <p>{{ ktp_form.kabupaten.label }}
+        {{ ktp_form.kabupaten() }}</p>
+        <p>{{ ktp_form.kewarganegaraan.label }}
+        {{ ktp_form.kewarganegaraan() }}</p>
+        <p>{{ ktp_form.pekerjaan.label }}
+        {{ ktp_form.pekerjaan() }}</p>
+        <p>{{ ktp_form.status.label }}
+        {{ ktp_form.status() }}</p>
+        <p>{{ ktp_form.notelf.label }}
+        {{ ktp_form.notelf() }}</p>
+        <p>{{ ktp_form.submit() }}</p>
+    </form>
+{% endblock %}

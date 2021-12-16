@@ -5,6 +5,10 @@ from laporan_form import InputLaporan
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
 @app.route("/ktp", methods=['GET', 'POST'])
 def ktp():
     ktp_form = InputKtp()

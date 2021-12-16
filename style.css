@@ -1,0 +1,12 @@
+body{
+    background-color:  hsl(227, 49%, 47%);;
+}
+
+nav {
+    background-color: #5C7AEA;
+}
+
+.dropdown-menu{
+    background-color: #3D56B2; 
+    border-radius: 17px;
+}

@@ -12,7 +12,7 @@
             <div>
                 {% for i in data_laporan %}
                     <table>
-                        <tr><td><h5>{{ i.nik }}</h5></td><td></td><td></td><td><button><a  href="{{ url_for('validasi_laporan_data', nik=i.nik) }}">Cek Selengkapnya</a></button></td></tr>
+                        <tr><td><button type="button" class="btn btn-light"><a  href="{{ url_for('validasi_laporan_data', nik=i.nik) }}" style="text-decoration: none">Cek Selengkapnya</a></button></td><td></td><td></td><td></td><td><h5>{{ i.nik }}</h5></td><td> - </td><td><h5>{{ i.nama }}</h5></tr>
                     </table>
                 {% endfor %}
             </div>

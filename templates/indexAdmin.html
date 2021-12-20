@@ -1,12 +1,78 @@
-{% extends "base.html" %}
-{% block title %}Admin{% endblock %}
+{% extends "baseAdmin.html" %}
+{% block title %}Index{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {{ super() }}
+    <style>
+        @media only screen and (max-width: 768px) {
+      /* For mobile phones: */
+      [class*="col-"] {
+        width: 80%;
+      }
+
+      [class*="navbar-brand text-light"] {
+        margin-right: 20px;
+      }
+    }
+        .place .icon-box {
+        box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.1);
+        transition: all ease-in-out 0.4s;
+        background: #5C7AEA;
+        width: 350px;
+        height: 200px;
+        border-radius: 5px;
+        margin-top: 35px;
+      }
+      .place .icon-box .icon {
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      .place .icon-box h4 {
+        font-weight: 500;
+        margin-bottom: 15px;
+        font-size: 24px;
+        text-align: center;
+      }
+      .place .icon-box p {
+        line-height: 24px;
+        font-size: 14px;
+        margin-bottom: 0;
+        color: #5C7AEA;
+      }
+      .place .icon-box:hover {
+        transform: translateY(-10px);
+      }
+      .place .icon-box:hover h4 a {
+        color: #fff;
+      }
+    </style>
 {% endblock %}
 {% block content %}
-    <div class="text-center text-light" style="margin-top: 40px;">
-        <h1 style="font-size: 65px;">Selamat Datang Admin</h1>
-        <img src="static/img/home.png" style="width: 752px; height: 400px;">
-    </div>
+    <section class="place">
+        <div class="container" data-aos="fade-up">
+          <div class="row">
+              </div>
+          <div class="row justify-content-center">
+            <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                <div class="icon-box">
+                <a style="text-decoration: none;" href="{{ url_for('validasi_ktp') }}">
+                <div class="icon"><i class="bi bi-card-text" style="color: white; font-size: 30px;"></i></div>
+                <h4 style="color: white;">Validasi KTP</h4>
+                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+              <div class="icon-box">
+                <a style="text-decoration: none;" href="{{ url_for('validasi_laporan') }}">
+                  <div class="icon"><i class="bi bi-card-text" style="color: white; font-size: 30px;"></i></div>
+                  <h4 style="color: white;">Validasi Laporan</h4>
+                  <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+                </a>
+              </div>
+            </div>
+        </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br>
+      </section>
 {% endblock %}

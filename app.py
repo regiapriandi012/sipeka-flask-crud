@@ -34,9 +34,9 @@ def ktp():
         rt = ktp_form.rt.data
         rw = ktp_form.rw.data
         desa = ktp_form.desa.data
-        kecamatan = ktp_form.kecamatan.data
-        kabupaten = ktp_form.kabupaten.data
-        kewarganegaraan = ktp_form.kewarganegaraan.data
+        kecamatan = "Banjarharjo"
+        kabupaten = "Brebes"
+        kewarganegaraan = "Indonesia"
         pekerjaan = ktp_form.pekerjaan.data
         status = ktp_form.status.data
         notelf = ktp_form.notelf.data
@@ -66,7 +66,7 @@ def laporan():
         rt = laporan_form.rt.data
         rw = laporan_form.rw.data
         desa = laporan_form.desa.data
-        kecamatan = laporan_form.kecamatan.data
+        kecamatan = "Banjarharjo"
         jk = laporan_form.jk.data
         notelf = laporan_form.notelf.data
         kategory = laporan_form.kategory.data
@@ -146,6 +146,10 @@ def cek_status_laporan_gagal():
 
 #--------------------------------------------
 #halaman untuk Admin
+
+@app.route("/admin/login")
+def login_admin():
+    return render_template("loginAdmin.html")
 
 @app.route("/admin")
 def admin():

@@ -22,10 +22,10 @@
                     {{ wtf.form_field(ktp_form.rw , class='form-control', placeholder='Contoh. 001') }}
                 </div>
                 <div class="form-group col-md-6">
-                    {{ wtf.form_field(ktp_form.desa , class='form-control', placeholder='Contoh. Sindangheula') }}
-                    {{ wtf.form_field(ktp_form.kecamatan , class='form-control', placeholder='Contoh. Banjarharjo') }}
-                    {{ wtf.form_field(ktp_form.kabupaten , class='form-control', placeholder='Contoh. Brebes') }}
-                    {{ wtf.form_field(ktp_form.kewarganegaraan , class='form-control', placeholder='Contoh. Indonesia') }}
+                    {{ wtf.form_field(ktp_form.desa , class='form-control') }}
+                    {{ wtf.form_field(ktp_form.kecamatan , class='form-control', placeholder='Banjarharjo', disabled=True) }}
+                    {{ wtf.form_field(ktp_form.kabupaten , class='form-control', placeholder='Brebes', disabled=True)}}
+                    {{ wtf.form_field(ktp_form.kewarganegaraan , class='form-control', placeholder='Indonesia', disabled=True) }}
                     {{ wtf.form_field(ktp_form.pekerjaan , class='form-control', placeholder='Contoh. Wiraswasta') }}
                     {{ wtf.form_field(ktp_form.status , class='form-control', placeholder='Contoh. Belum Menikah') }}
                     {{ wtf.form_field(ktp_form.notelf , class='form-control', placeholder='Contoh. 087794853484') }}

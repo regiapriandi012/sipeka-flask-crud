@@ -2,63 +2,32 @@ body{
     background-color:  hsl(227, 49%, 47%);;
 }
 
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 80%;
+  }
+
+  [class*="navbar-brand text-light"] {
+    margin-right: 20px;
+  }
+}
 
 nav {
     background-color: #5C7AEA;
 }
 
-.dropdown-menu{
-    background-color: #3D56B2; 
-    border-radius: 17px;
-}
-
-form {
-    display: grid;
-    padding: 1em;
-    background: #5C7AEA;
-    border: 1px solid #c1c1c1;
-    margin: 2rem auto 0 auto;
-    max-width: 500px;
-    padding: 1em;
-  }
-  form input {
-    background: #fff;
-    border: 1px solid #9c9c9c;
-    border-radius: 12px;
-  }
-  form button {
-    background: lightgrey;
-    padding: 0.7em;
-    width: 100%;
-    border: 0;
-  }
-  form button:hover {
-    background: gold;
-  }
-  
-  label {
-    margin: auto;
-  }
-  
-  input {
-    padding: 0.7em;
-    margin-bottom: 0.5rem;
-  }
-  input:focus {
-    outline: 3px solid gold;
-  }
-  
   @media (min-width: 400px) {
     form {
       grid-template-columns: 200px 1fr;
       grid-gap: 16px;
     }
-  
+
     label {
       text-align: right;
       grid-column: 1 / 2;
     }
-  
+
     input,
     button {
       grid-column: 2 / 3;
@@ -66,4 +35,20 @@ form {
   }
   .jk{
       color: white;
+  }
+
+  .navbar-toggler{
+    background-color: white;
+    width: 47px;
+    height: 34px;
+    border: none;
+  }
+
+
+  .navbar-toggler .navbar-toggler-icon{
+    background-color: #3D56B2;
+    width: 100%;
+    float: left;
+    height: 2px;
+    margin-bottom: 5px;
   }

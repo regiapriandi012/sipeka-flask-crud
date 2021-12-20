@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="text-center text-light" style="margin-top: 40px;">
+        <h3>Cek Status Validasi Laporan Gagal!</h3>
+        <h3>Mohon Maaf, Data Tidak Ditemukan!</h3>
+        <h3><a href="{{ url_for('cek_laporan') }}" style="color: #FFFFFF">Kembali Ke Input Data</a></h3>
+    </div>
+{% endblock %}

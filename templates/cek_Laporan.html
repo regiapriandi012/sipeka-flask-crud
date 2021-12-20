@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Cek Validation Laporan{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container" style="color:#ffffff">
+        <h1>Cek Validasi Data Laporan</h1>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <form action="" method="post" class="form" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ cekLaporan_form.csrf_token() }}
+                    {{ wtf.form_field(cekLaporan_form.nik, class='form-control', placeholder='Contoh. 3329170204010004') }}
+                </div>
+                <div class="form-group col-md-6" style="margin-top:32px">
+                    {{ wtf.form_field(cekLaporan_form.submit) }}
+                </div>
+
+            </div>
+        </form>
+        <hr style="color:#ffffff; background-color:#ffffff">
+    </div>
+{% endblock %}

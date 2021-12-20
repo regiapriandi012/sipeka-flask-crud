@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Validasi Data Laporan{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container" style="color:#ffffff">
+        <h1>Validasi Data Laporan {{ data_laporan.nik }}</h1>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <form action="" method="post" class="form" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <table>
+                        <tr><td>NIK </td> <td> : </td><td>{{ data_laporan.nik }}</td></tr>
+                        <tr><td>Nama </td> <td> : </td><td>{{ data_laporan.nama }}</td></tr>
+                        <tr><td>Jenis Kelamin </td> <td> : </td><td>{{ data_laporan.jk }}</td></tr>
+                        <tr><td>RT </td> <td> : </td><td>{{ data_laporan.rt }}</td></tr>
+                        <tr><td>RW </td> <td> : </td><td>{{ data_laporan.rw }}</td></tr>
+                        <tr><td>Desa </td> <td> : </td><td>{{ data_laporan.desa }}</td></tr>
+                        <tr><td>Kecamatan </td> <td> : </td><td>{{ data_laporan.kecamatan }}</td></tr>
+                        <tr><td>Nomor Telefon </td> <td> : </td><td>{{ data_laporan.notelf }}</td></tr>
+                    </table>
+                </div>
+                <div class="form-group col-md-6">
+                    <table>
+                    <tr><td>Tanggal </td> <td> : </td><td>{{ data_laporan.tanggal }}</td></tr>
+                    <tr><td>Kategory </td> <td> : </td><td>{{ data_laporan.kategory }}</td></tr>
+                    <tr><td>Isi Laporan </td> <td> : </td><td>{{ data_laporan.isilaporan }}</td></tr>
+                    <tr><td>Pertnyataan </td> <td> : </td><td>{{ data_laporan.pernyataan }}</td></tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+        <hr style="color:#ffffff; background-color:#ffffff">
+    </div>
+{% endblock %}

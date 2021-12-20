@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="text-center text-light" style="margin-top: 40px;">
+        <h3>Input Data KTP Gagal!</h3>
+        <h3>Mohon Maaf, </h3>
+        <h3>Data yang anda masukan salah / Data sudah dalam database!</h3>
+        <h3><a href="{{ url_for('ktp') }}" style="color: #FFFFFF">Kembali Ke Input Data</a></h3>
+    </div>
+{% endblock %}

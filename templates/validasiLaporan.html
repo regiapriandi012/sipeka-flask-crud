@@ -1,0 +1,21 @@
+{% extends "baseAdmin.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Validasi KTP{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container" style="color:#ffffff">
+        <h1>Validasi Data Laporan</h1>
+        <hr style="color:#ffffff; background-color:#ffffff">
+            <div>
+                {% for i in data_laporan %}
+                    <table>
+                        <tr><td><h5>{{ i.nik }}</h5></td><td></td><td></td><td><button><a  href="{{ url_for('validasi_laporan_data', nik=i.nik) }}">Cek Selengkapnya</a></button></td></tr>
+                    </table>
+                {% endfor %}
+            </div>
+        <hr style="color:#ffffff; background-color:#ffffff">
+    </div>
+{% endblock %}

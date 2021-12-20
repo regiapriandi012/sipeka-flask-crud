@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="text-center text-light" style="margin-top: 40px;">
+        <h1 style="font-size: 65px;">Selamat Datang Admin</h1>
+        <img src="static/img/home.png" style="width: 752px; height: 400px;">
+    </div>
+{% endblock %}

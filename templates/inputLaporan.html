@@ -1,40 +1,38 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Input Laporan{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 {% block content %}
-    <form method="POST">
-        {{ laporan_form.hidden_tag() }}
-        <p>{{ laporan_form.nik.label }}
-        {{ laporan_form.nik() }}</p>
-        <p>{{ laporan_form.nama.label }}
-        {{ laporan_form.nama() }}</p>
-        <p>{{ laporan_form.rt.label }}
-        {{ laporan_form.rt() }}</p>
-        <p>{{ laporan_form.rw.label }}
-        {{ laporan_form.rw() }}</p>
-        <table><tr>
-            <td>{{ laporan_form.jk.label }}</td>
-            {% for btn in laporan_form.jk %}
-                <td>{{ btn() }}</td>
-                <td>{{ btn.label }}</td>
-            {% endfor %}
-        </tr></table>
-        <p>{{ laporan_form.notelf.label }}
-        {{ laporan_form.notelf() }}</p>
-        <table><tr>
-            <td>{{ laporan_form.kategory.label }}</td>
-            {% for btn in laporan_form.kategory %}
-                <td>{{ btn() }}</td>
-                <td>{{ btn.label }}</td>
-            {% endfor %}
-        </tr></table>
-        <p>{{ laporan_form.tanggal.label }}
-        {{ laporan_form.tanggal() }}</p>
-        <p>{{ laporan_form.isilaporan.label }}
-        {{ laporan_form.isilaporan() }}</p>
-        <p>{{ laporan_form.submit() }}</p>
-    </form>
+    <div class="container" style="color:#ffffff">
+        <h1>Input Data Laporan</h1>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <form action="" method="post" class="form" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ laporan_form.csrf_token() }}
+                    {{ wtf.form_field(laporan_form.nik , class='form-control', placeholder='Contoh. 332917020401004') }}
+                    {{ wtf.form_field(laporan_form.nama , class='form-control', placeholder='Contoh. Kaka Karsana') }}
+                    {{ wtf.form_field(laporan_form.jk , class='form-control') }}
+                    {{ wtf.form_field(laporan_form.rt , class='form-control', placeholder='Contoh. 009') }}
+                    {{ wtf.form_field(laporan_form.rw , class='form-control', placeholder='Contoh. 012') }}
+                    {{ wtf.form_field(laporan_form.desa , class='form-control', placeholder='Contoh. Penanggapan') }}
+                    {{ wtf.form_field(laporan_form.kecamatan , class='form-control', placeholder='Contoh. Banjarharjo') }}
+                    {{ wtf.form_field(laporan_form.notelf , class='form-control', placeholder='Contoh. 087794853484') }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ wtf.form_field(laporan_form.tanggal , class='form-control', placeholder='Contoh. Jumat, 17 Desember 2021') }}
+                    {{ wtf.form_field(laporan_form.kategory , class='form-control') }}
+                    {{ wtf.form_field(laporan_form.isilaporan , class='form-control', rows=9, placeholder='Contoh. Terdapat banyak sekali jalan rusak di setiap titik di desa bandungsari yang dimana sangat menggangu sekali pengguna jalan apalagi ketika pasar pon sedang berlangsung') }}
+                    {{ wtf.form_field(laporan_form.pernyataan , class='form-control', placeholder='Contoh. Laporan yang saya input merupakan Masalah yang benar adanya atau fakta') }}
+                </div>
+                <div style="margin-left: 15px">
+                    {{ wtf.form_field(laporan_form.submit) }}
+                </div>
+            </div>
+        </form>
+        <hr style="color:#ffffff; background-color:#ffffff">
+    </div>
 {% endblock %}

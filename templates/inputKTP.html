@@ -1,45 +1,40 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Input KTP{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 {% block content %}
-    <form method="POST">
-        {{ ktp_form.hidden_tag() }}
-        <p>{{ ktp_form.nik.label }}
-        {{ ktp_form.nik() }}</p>
-        <p>{{ ktp_form.nama.label }}
-        {{ ktp_form.nama() }}</p>
-        <p>{{ ktp_form.ttl.label }}
-        {{ ktp_form.ttl() }}</p>
-        <table><tr>
-            <td>{{ ktp_form.jk.label }}</td>
-            {% for btn in ktp_form.jk %}
-                <td>{{ btn() }}</td>
-                <td>{{ btn.label }}</td>
-            {% endfor %}
-        </tr></table>
-        <p>{{ ktp_form.alamat.label }}
-        {{ ktp_form.alamat() }}</p>
-        <p>{{ ktp_form.rt.label }}
-        {{ ktp_form.rt() }}</p>
-        <p>{{ ktp_form.rw.label }}
-        {{ ktp_form.rw() }}</p>
-        <p>{{ ktp_form.desa.label }}
-        {{ ktp_form.desa() }}</p>
-        <p>{{ ktp_form.kecamatan.label }}
-        {{ ktp_form.kecamatan() }}</p>
-        <p>{{ ktp_form.kabupaten.label }}
-        {{ ktp_form.kabupaten() }}</p>
-        <p>{{ ktp_form.kewarganegaraan.label }}
-        {{ ktp_form.kewarganegaraan() }}</p>
-        <p>{{ ktp_form.pekerjaan.label }}
-        {{ ktp_form.pekerjaan() }}</p>
-        <p>{{ ktp_form.status.label }}
-        {{ ktp_form.status() }}</p>
-        <p>{{ ktp_form.notelf.label }}
-        {{ ktp_form.notelf() }}</p>
-        <p>{{ ktp_form.submit() }}</p>
-    </form>
+    <div class="container" style="color:#ffffff">
+        <h1>Input Data KTP</h1>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <form action="" method="post" class="form" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ ktp_form.csrf_token() }}
+                    {{ wtf.form_field(ktp_form.nik, class='form-control', placeholder='Contoh. 3329170204010004') }}
+                    {{ wtf.form_field(ktp_form.nama , class='form-control', placeholder='Contoh. Mochammad Bagus') }}
+                    {{ wtf.form_field(ktp_form.ttl , class='form-control', placeholder='Contoh. Brebes, 31 Januari 2001') }}
+                    {{ wtf.form_field(ktp_form.jk , class='form-control') }}
+                    {{ wtf.form_field(ktp_form.alamat , class='form-control', placeholder='Contoh. Desa Sindangheula') }}
+                    {{ wtf.form_field(ktp_form.rt , class='form-control', placeholder='Contoh. 002') }}
+                    {{ wtf.form_field(ktp_form.rw , class='form-control', placeholder='Contoh. 001') }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ wtf.form_field(ktp_form.desa , class='form-control', placeholder='Contoh. Sindangheula') }}
+                    {{ wtf.form_field(ktp_form.kecamatan , class='form-control', placeholder='Contoh. Banjarharjo') }}
+                    {{ wtf.form_field(ktp_form.kabupaten , class='form-control', placeholder='Contoh. Brebes') }}
+                    {{ wtf.form_field(ktp_form.kewarganegaraan , class='form-control', placeholder='Contoh. Indonesia') }}
+                    {{ wtf.form_field(ktp_form.pekerjaan , class='form-control', placeholder='Contoh. Wiraswasta') }}
+                    {{ wtf.form_field(ktp_form.status , class='form-control', placeholder='Contoh. Belum Menikah') }}
+                    {{ wtf.form_field(ktp_form.notelf , class='form-control', placeholder='Contoh. 087794853484') }}
+                </div>
+                <div style="margin-left: 15px">
+                    {{ wtf.form_field(ktp_form.submit) }}
+                </div>
+            </div>
+        </form>
+        <hr style="color:#ffffff; background-color:#ffffff">
+    </div>
 {% endblock %}

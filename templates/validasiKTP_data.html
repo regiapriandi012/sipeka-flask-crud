@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Input KTP{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container" style="color:#ffffff">
+        <h1>Validasi Data KTP {{ data_ktp.nik }}</h1>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <form action="" method="post" class="form" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <table>
+                    <tr><td>NIK </td> <td> : </td><td>{{ data_ktp.nik }}</td></tr>
+                    <tr><td>Nama </td> <td> : </td><td>{{ data_ktp.nama }}</td></tr>
+                    <tr><td>Tempat Tanggal Lahir </td> <td> : </td><td>{{ data_ktp.ttl }}</td></tr>
+                    <tr><td>Jenik Kelamin </td> <td> : </td><td>{{ data_ktp.jk }}</td></tr>
+                    <tr><td>Alamat </td> <td> : </td><td>{{ data_ktp.alamat }}</td></tr>
+                    <tr><td>RT </td> <td> : </td><td>{{ data_ktp.rt }}</td></tr>
+                    <tr><td>RW </td> <td> : </td><td>{{ data_ktp.rw }}</td></tr>
+                    </table>
+                </div>
+                <div class="form-group col-md-6">
+                    <table>
+                    <tr><td>Desa </td> <td> : </td><td>{{ data_ktp.desa }}</td></tr>
+                    <tr><td>Kecamatan </td> <td> : </td><td>{{ data_ktp.kecamatan }}</td></tr>
+                    <tr><td>Kabupaten </td> <td> : </td><td>{{ data_ktp.kabupaten }}</td></tr>
+                    <tr><td>Kewarganegaraan </td> <td> : </td><td>{{ data_ktp.kewarganegaraan }}</td></tr>
+                    <tr><td>Pekerjaan </td> <td> : </td><td>{{ data_ktp.pekerjaan }}</td></tr>
+                    <tr><td>Status </td> <td> : </td><td>{{ data_ktp.status }}</td></tr>
+                    <tr><td>Nomor Telefon </td> <td> : </td><td>{{ data_ktp.notelf }}</td></tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+        <hr style="color:#ffffff; background-color:#ffffff">
+    </div>
+{% endblock %}

@@ -172,4 +172,4 @@ def validasi_laporan_data(nik):
     return render_template("validasiLaporan_data.html", data_laporan=data_laporan)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=8000)

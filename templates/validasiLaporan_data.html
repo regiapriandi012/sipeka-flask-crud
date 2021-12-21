@@ -1,13 +1,12 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% block title %}Validasi Data Laporan{% endblock %}
+{% block title %}Validasi Laporan{% endblock %}
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 {% block content %}
     <div class="container" style="color:#ffffff">
-        <h1>Validasi Data Laporan {{ data_laporan.nik }}</h1>
+        <h3>Validasi Data Laporan {{ data_laporan.nik }}</h3>
         <hr style="color:#ffffff; background-color:#ffffff">
         <form action="" method="post" class="form" role="form">
             <div class="row">

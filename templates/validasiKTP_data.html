@@ -1,4 +1,5 @@
 {% extends "baseAdmin.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Validasi KTP{% endblock %}
 {% block head %}
     {{ super() }}
@@ -30,10 +31,14 @@
                     <tr><td>Pekerjaan </td> <td> : </td><td>{{ data_ktp.pekerjaan }}</td></tr>
                     <tr><td>Status </td> <td> : </td><td>{{ data_ktp.status }}</td></tr>
                     <tr><td>Nomor Telefon </td> <td> : </td><td>{{ data_ktp.notelf }}</td></tr>
+                    <tr><td>Surat Pengantar </td> <td> : </td><td>{{ data_ktp.surat_keterangan }}</td></tr>
                     </table>
                     <br>
-                    <button type="button" class="btn btn-light"><a  href="" style="text-decoration: none">Validasi</a></button>
-                    <button type="button" class="btn btn-light"><a  href="" style="text-decoration: none">Tolak</a></button>
+                    {{ wtf.form_field(validasi_ktp.validasi) }}
+                    {{ wtf.form_field(tolak_ktp.tolak) }}
+                    <form>
+                        <input class="btn btn-default " type="button" value="print" onClick="window.print()"/>
+                    </form>
                 </div>
             </div>
         </form>

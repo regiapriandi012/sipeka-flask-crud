@@ -18,7 +18,8 @@ class DataKtp(db.Model):
     pekerjaan = db.Column(db.String(100), index=True, unique=False)
     status = db.Column(db.String(100), index=True, unique=False)
     notelf = db.Column(db.String(100), index=True, unique=False)
-    status_validasi = db.Column(db.String(100), index=True, unique=False)
+    surat_keterangan = db.Column(db.String(100), index=True, unique=False)
+    status_validasi = db.Column(db.String(300), index=True, unique=False)
 
     def __repr__(self):
         return "{} - {}".format(self.nik, self.nama)
@@ -35,9 +36,9 @@ class DataLaporan(db.Model):
     notelf = db.Column(db.String(100), index=True, unique=False)
     kategory = db.Column(db.String(100), index=True, unique=False)
     tanggal = db.Column(db.String(100), index=True, unique=False)
-    isilaporan = db.Column(db.String(1000), index=True, unique=False)
+    isilaporan = db.Column(db.String(700), index=True, unique=False)
     pernyataan = db.Column(db.String(200), index=True, unique=False)
-    status_validasi = db.Column(db.String(100), index=True, unique=False)
+    status_validasi = db.Column(db.String(300), index=True, unique=False)
 
     def __repr__(self):
         return "{} - {}".format(self.nik, self.nama)

@@ -1,7 +1,10 @@
 from flask import Flask, render_template, redirect, url_for
-from form import InputLaporan, InputKtp, CekKtp, CekLaporan
+from form import InputLaporan, InputKtp, CekKtp, CekLaporan, ValidasiLaporan, ValidasiKTP, TolakLaporan, TolakKTP
 from flask_bootstrap import Bootstrap
 from models import db, DataKtp, DataLaporan
+from datetime import datetime, timedelta
+from schedule import schedule
+date = datetime.today() + timedelta(days=1)
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -40,11 +43,13 @@ def ktp():
         pekerjaan = ktp_form.pekerjaan.data
         status = ktp_form.status.data
         notelf = ktp_form.notelf.data
+        surat_keterangan = ktp_form.surat_keterangan.data
         status_validasi = "Data Belum Divalidasi"
         data_ktp = DataKtp(nik=nik, nama=nama, ttl=ttl, jk=jk, alamat=alamat, rt=rt, rw=rw,
                            desa=desa, kecamatan=kecamatan, kabupaten=kabupaten,
                            kewarganegaraan=kewarganegaraan, pekerjaan=pekerjaan,
-                           status=status, notelf=notelf, status_validasi=status_validasi)
+                           status=status, notelf=notelf, surat_keterangan=surat_keterangan,
+                           status_validasi=status_validasi)
         try:
             db.session.add(data_ktp)
             db.session.commit()
@@ -136,44 +141,69 @@ def cek_status_ktp_sukses(nik, nama, status):
 def cek_status_laporan_sukses(nik, nama, status):
     return render_template("cekLaporan_success.html", nama_form=nama, nik_form=nik, status_form=status)
 
-@app.route("/inputktp/cekvalidasi/gagal")
+@app.route("/inputktp/cekvalidasi/gagal", methods=['GET', 'POST'])
 def cek_status_ktp_gagal():
     return render_template("cekKTP_failed.html")
 
-@app.route("/inputlaporan/cekvalidasi/gagal")
+@app.route("/inputlaporan/cekvalidasi/gagal", methods=['GET', 'POST'])
 def cek_status_laporan_gagal():
     return render_template("cekLaporan_failed.html")
 
 #--------------------------------------------
 #halaman untuk Admin
 
-@app.route("/admin/login")
+@app.route("/admin/login", methods=['GET', 'POST'])
 def login_admin():
     return render_template("loginAdmin.html")
 
-@app.route("/admin")
+@app.route("/admin", methods=['GET', 'POST'])
 def admin():
     return render_template("indexAdmin.html")
 
-@app.route("/admin/validasi/ktp")
+@app.route("/admin/validasi/ktp", methods=['GET', 'POST'])
 def validasi_ktp():
     data_ktp = DataKtp.query.filter(DataKtp.status_validasi == 'Data Belum Divalidasi').all()
     return render_template("validasiKTP.html", data_ktp=data_ktp)
 
-@app.route("/admin/validasi/laporan")
+@app.route("/admin/validasi/laporan", methods=['GET', 'POST'])
 def validasi_laporan():
     data_laporan = DataLaporan.query.filter(DataLaporan.status_validasi == 'Data Belum Divalidasi').all()
     return render_template("validasiLaporan.html", data_laporan=data_laporan)
 
-@app.route("/admin/validasi/ktp/<nik>")
+@app.route("/admin/validasi/ktp/<nik>", methods=['GET', 'POST'])
 def validasi_ktp_data(nik):
     data_ktp = DataKtp.query.get(nik)
-    return render_template("validasiKTP_data.html", data_ktp=data_ktp)
+    validasi_ktp = ValidasiKTP()
+    tolak_ktp = TolakLaporan()
+    counter = 1
+    if validasi_ktp.is_submitted():
+        try:
+            jadwal = schedule[counter]
+            data_ktp = DataKtp.query.get(nik)
+            data_ktp.status_validasi = "Data Berhasil Divalidasi, Selanjutnya Datang ke Kantor Kecamatan pada pukul {} tanggal {}".format(jadwal, date.date())
+            db.session.commit()
+            return redirect(url_for("accept_data_ktp", nik=nik, _external=True))
+        except:
+            db.session.rollback()
+        counter += 1
+    elif tolak_ktp.is_submitted():
+        return redirect(url_for("decline_data_ktp", nik=nik, _external=True))
+    return render_template("validasiKTP_data.html", data_ktp=data_ktp, validasi_ktp=validasi_ktp, tolak_ktp=tolak_ktp)
 
-@app.route("/admin/validasi/laporan/<nik>")
+@app.route("/admin/validasi/laporan/<nik>", methods=['GET', 'POST'])
 def validasi_laporan_data(nik):
     data_laporan = DataLaporan.query.get(nik)
     return render_template("validasiLaporan_data.html", data_laporan=data_laporan)
 
+#-------------------------------------
+#validasi data dan tolak validasi data
+
+@app.route("/admin/validasi/ktp/<nik>/accept", methods=['GET', 'POST'])
+def accept_data_ktp(nik):
+    return render_template("inputLaporan_success.html")
+
+@app.route("/admin/validasi/ktp/<nik>/decline", methods=['GET', 'POST'])
+def decline_data_ktp(nik):
+    pass
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8000)

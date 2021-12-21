@@ -15,6 +15,7 @@
                     {{ laporan_form.csrf_token() }}
                     {{ wtf.form_field(laporan_form.nik , class='form-control', placeholder='Contoh. 332917020401004') }}
                     {{ wtf.form_field(laporan_form.nama , class='form-control', placeholder='Contoh. Kaka Karsana') }}
+                    <p>Jenis Kelamin</p>
                     {{ wtf.form_field(laporan_form.jk , class='form-control') }}
                     {{ wtf.form_field(laporan_form.rt , class='form-control', placeholder='Contoh. 009') }}
                     {{ wtf.form_field(laporan_form.rw , class='form-control', placeholder='Contoh. 012') }}
@@ -24,6 +25,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     {{ wtf.form_field(laporan_form.tanggal , class='form-control', placeholder='Contoh. Jumat, 17 Desember 2021') }}
+                    <p>Kategori Laporan</p>
                     {{ wtf.form_field(laporan_form.kategory , class='form-control') }}
                     {{ wtf.form_field(laporan_form.isilaporan , class='form-control', rows=9, placeholder='Contoh. Terdapat banyak sekali jalan rusak di setiap titik di desa bandungsari yang dimana sangat menggangu sekali pengguna jalan apalagi ketika pasar pon sedang berlangsung') }}
                     {{ wtf.form_field(laporan_form.pernyataan , class='form-control', placeholder='Contoh. Laporan yang saya input merupakan Masalah yang benar adanya atau fakta') }}

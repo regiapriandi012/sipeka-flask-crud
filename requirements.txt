@@ -5,3 +5,4 @@ flask_sqlalchemy
 wtforms
 flask_wtf
 email_validator
+mysqlclient

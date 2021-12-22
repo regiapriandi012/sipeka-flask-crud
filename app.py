@@ -156,15 +156,15 @@ def load_user(user_id):
 
 @app.route("/admin/login", methods=['GET', 'POST'])
 def login_admin():
-    login_admin = LoginAdmin(csrf_enabled=False)
-    if login_admin.validate_on_submit():
-        username = login_admin.username.data
-        remember = login_admin.remember.data
-        password = login_admin.password.data
+    form_login = LoginAdmin(csrf_enabled=False)
+    if form_login.validate_on_submit():
+        username = form_login.username.data
+        remember = form_login.remember.data
+        password = form_login.password.data
         user = Admin.query.filter(Admin.username == username).first()
         if not user:
             flash('Please check login details and try again', 'danger')
-            return redirect(url_for('login'))
+            return redirect(url_for('login_admin', _external=True))
         if user.check_password(password):
             flash('Successfully logged in', 'success')
             login_user(user, remember=remember)
@@ -172,7 +172,7 @@ def login_admin():
             return redirect(next) if next else redirect(url_for("admin", _external=True))
         else:
             return redirect(url_for('login_admin', _external=True))
-    return render_template("loginAdmin.html", form_login=login_admin)
+    return render_template("loginAdmin.html", form_login=form_login)
 
 #--------------------------------------------
 #halaman untuk Admin

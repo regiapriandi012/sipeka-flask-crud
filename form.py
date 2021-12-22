@@ -9,8 +9,16 @@ class InputKtp(FlaskForm):
     choices = [("Laki-Laki", "Laki-Laki"), ("Perempuan", "Perempuan")]
     jk = RadioField("Jenis Kelamin", choices=choices, validators=[DataRequired()])
     alamat = TextAreaField("Alamat", validators=[DataRequired()])
-    rt = StringField("RT", validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
-    rw = StringField("RW", validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
+    rt_choices = [("", "(pilih)"),("001", "001"), ("002", "002"), ("003", "003"), ("004", "004"), ("005", "005"), ("006", "006"), ("007", "007"), ("008", "008")
+                  , ("009", "009"), ("010", "010"), ("011", "011"), ("012", "012"), ("013", "013"), ("014", "014"), ("015", "015"), ("016", "016")
+                  , ("017", "017"), ("018", "018"), ("019", "019"), ("020", "020"), ("021", "021"), ("022", "022"), ("023", "023"), ("024", "024")
+                  , ("025", "025"), ("026", "026"), ("027", "027"), ("028", "028"), ("029", "029"), ("030", "030")]
+    rw_choices = [("", "(pilih)"),("001", "001"), ("002", "002"), ("003", "003"), ("004", "004"), ("005", "005"), ("006", "006"), ("007", "007"), ("008", "008")
+                  , ("009", "009"), ("010", "010"), ("011", "011"), ("012", "012"), ("013", "013"), ("014", "014"), ("015", "015"), ("016", "016")
+                  , ("017", "017"), ("018", "018"), ("019", "019"), ("020", "020"), ("021", "021"), ("022", "022"), ("023", "023"), ("024", "024")
+                  , ("025", "025"), ("026", "026"), ("027", "027"), ("028", "028"), ("029", "029"), ("030", "030")]
+    rt = SelectField("RT", choices=rt_choices,  validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
+    rw = SelectField("RW", choices=rw_choices, validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
     choice_desa = [("", "(Pilih)"),("Sindangheula", "Sindangheula"), ("Blandongan", "Blandongan"), ("Kertasari", "Kertasari"),
                    ("Bandungsari", "Bandungsari"), ("Cipajang", "Cipajang"), ("Penanggapan", "Penanggapan"),
                    ("Malahayu", "Malahayu"), ("Cikuya", "Cikuya"), ("Banjarharjo", "Banjarharjo"),
@@ -24,7 +32,8 @@ class InputKtp(FlaskForm):
     kabupaten = StringField("Kabupaten")
     kewarganegaraan = StringField("Kewarganegaraan")
     pekerjaan = StringField("Pekerjaan", validators=[DataRequired()])
-    status = StringField("Status", validators=[DataRequired()])
+    perkawinan_choice = [("", "(pilih)"),("Belum Kawin", "Belum Kawin"), ("Kawin", "Kawin"), ("Cerai Hidup", "Cerai Hidup"), ("Cerai Mati", "Cerai Mati")]
+    status = SelectField("Status Perkawinan", choices=perkawinan_choice, validators=[DataRequired()])
     notelf = StringField("Nomer Telefon", validators=[DataRequired(), Length(min=12, max=12), Regexp(regex='^[0-9]*$')])
     surket_choice = [("", "(Pilih)"),("Sudah Membuat", "Sudah Membuat"), ("Belum Membuat", "Belum Membuat")]
     surat_keterangan = SelectField("Surat Pengantar Dari Desa", choices=surket_choice, validators=[DataRequired()])
@@ -33,8 +42,22 @@ class InputKtp(FlaskForm):
 class InputLaporan(FlaskForm):
     nik = StringField("NIK", validators=[DataRequired(), Length(min=16, max=16), Regexp(regex='^[0-9]*$')])
     nama = StringField("Nama", validators=[DataRequired()])
-    rt = StringField("RT", validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
-    rw = StringField("RW", validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
+    rt_choices = [("", "(pilih)"),("001", "001"), ("002", "002"), ("003", "003"), ("004", "004"), ("005", "005"), ("006", "006"),
+                  ("007", "007"), ("008", "008")
+        , ("009", "009"), ("010", "010"), ("011", "011"), ("012", "012"), ("013", "013"), ("014", "014"),
+                  ("015", "015"), ("016", "016")
+        , ("017", "017"), ("018", "018"), ("019", "019"), ("020", "020"), ("021", "021"), ("022", "022"),
+                  ("023", "023"), ("024", "024")
+        , ("025", "025"), ("026", "026"), ("027", "027"), ("028", "028"), ("029", "029"), ("030", "030")]
+    rw_choices = [("", "(pilih)"),("001", "001"), ("002", "002"), ("003", "003"), ("004", "004"), ("005", "005"), ("006", "006"),
+                  ("007", "007"), ("008", "008")
+        , ("009", "009"), ("010", "010"), ("011", "011"), ("012", "012"), ("013", "013"), ("014", "014"),
+                  ("015", "015"), ("016", "016")
+        , ("017", "017"), ("018", "018"), ("019", "019"), ("020", "020"), ("021", "021"), ("022", "022"),
+                  ("023", "023"), ("024", "024")
+        , ("025", "025"), ("026", "026"), ("027", "027"), ("028", "028"), ("029", "029"), ("030", "030")]
+    rt = SelectField("RT", choices=rt_choices, validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
+    rw = SelectField("RW", choices=rw_choices, validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
     choice_desa = [("", "Pilih"),("Sindangheula", "Sindangheula"), ("Blandongan", "Blandongan"), ("Kertasari", "Kertasari"),
                    ("Bandungsari", "Bandungsari"), ("Cipajang", "Cipajang"), ("Penanggapan", "Penanggapan"),
                    ("Malahayu", "Malahayu"), ("Cikuya", "Cikuya"), ("Banjarharjo", "Banjarharjo"),
@@ -65,12 +88,8 @@ class CekLaporan(FlaskForm):
 
 class ValidasiKTP(FlaskForm):
     validasi = SubmitField("Validasi", validators=[DataRequired()])
+    tolak = SubmitField("Tolak", validators=[DataRequired()])
 
 class ValidasiLaporan(FlaskForm):
     validasi = SubmitField("Validasi", validators=[DataRequired()])
-
-class TolakKTP(FlaskForm):
-    tolak = SubmitField("Tolak", validators=[DataRequired()])
-
-class TolakLaporan(FlaskForm):
     tolak = SubmitField("Tolak", validators=[DataRequired()])

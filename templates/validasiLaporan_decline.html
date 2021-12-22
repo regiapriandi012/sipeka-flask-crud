@@ -1,0 +1,12 @@
+{% extends "baseAdmin.html" %}
+{% block title %}Validasi Laporan{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="text-center text-light" style="margin-top: 40px;">
+        <h3>Data Laporan dengan NIK {{ data_laporan.nik }} Berhasil di Tolak </h3>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('validasi_laporan', nik=data_laporan.nik) }}" style="text-decoration: none; color: black">Kembali</a></button>
+    </div>
+{% endblock %}

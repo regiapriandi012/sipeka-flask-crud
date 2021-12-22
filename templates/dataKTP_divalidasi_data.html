@@ -1,13 +1,13 @@
 {% extends "baseAdmin.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block title %}Validasi KTP{% endblock %}
+{% block title %}KTP Divalidasi{% endblock %}
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 {% block content %}
     <div class="container" style="color:#ffffff">
-        <h3>Validasi Data KTP {{ data_ktp.nik }}</h3>
+        <h3>Data KTP {{ data_ktp.nik }}</h3>
         <hr style="color:#ffffff; background-color:#ffffff">
         <form action="" method="post" class="form" role="form">
             <div class="row">
@@ -29,17 +29,14 @@
                     <tr><td>Kabupaten </td> <td> : </td><td>{{ data_ktp.kabupaten }}</td></tr>
                     <tr><td>Kewarganegaraan </td> <td> : </td><td>{{ data_ktp.kewarganegaraan }}</td></tr>
                     <tr><td>Pekerjaan </td> <td> : </td><td>{{ data_ktp.pekerjaan }}</td></tr>
-                    <tr><td>Status </td> <td> : </td><td>{{ data_ktp.status }}</td></tr>
-                    <tr><td>Nomor Telefon </td> <td> : </td><td>{{ data_ktp.notelf }}</td></tr>
-                    <tr><td>Surat Pengantar </td> <td> : </td><td>{{ data_ktp.surat_keterangan }}</td></tr>
+                    <tr><td>Status Perkawinan</td> <td> : </td><td>{{ data_ktp.status }}</td></tr>
                     </table>
                     <br>
-                    {{ wtf.form_field(validasi_ktp.validasi) }}
-                    {{ wtf.form_field(validasi_ktp.tolak) }}
                 </div>
             </div>
         </form>
         <hr style="color:#ffffff; background-color:#ffffff">
-        <button type="button" class="btn btn-light"><a  href="{{ url_for('validasi_ktp') }}" style="text-decoration: none; color: black">Kembali</a></button>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('ktp_divalidasi') }}" style="text-decoration: none; color: black">Kembali</a></button>
+        <input class="btn btn-default " type="button" value="print" onClick="window.print()"/>
     </div>
 {% endblock %}

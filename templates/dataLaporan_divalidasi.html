@@ -1,18 +1,18 @@
 {% extends "baseAdmin.html" %}
-{% block title %}Validasi Laporan{% endblock %}
+{% block title %}Validasi KTP{% endblock %}
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 {% block content %}
     <div class="container" style="color:#ffffff">
-        <h3>Validasi Data Laporan</h3>
+    <h3>Data Laporan Divalidasi</h3>
         <hr style="color:#ffffff; background-color:#ffffff">
             <div>
                 {% for i in data_laporan %}
-                    <table>
-                        <tr><td><button type="button" class="btn btn-light"><a  href="{{ url_for('validasi_laporan_data', nik=i.nik) }}" style="text-decoration: none">Cek Data</a></button></td><td></td><td></td><td></td><td><h5>{{ i.nik }}</h5></td></tr>
-                    </table>
+                <table>
+                    <tr><td><button type="button" class="btn btn-light"><a  href="{{ url_for('laporan_divalidasi_data', nik=i.nik) }}" style="text-decoration: none">Cek Data</a></button></td><td></td><td></td><td></td><td><h5>{{ i.nik }}</h5></td></tr>
+                </table>
                 {% endfor %}
             </div>
         <hr style="color:#ffffff; background-color:#ffffff">

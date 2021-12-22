@@ -1,5 +1,4 @@
 {% extends "baseAdmin.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Validasi Laporan{% endblock %}
 {% block head %}
     {{ super() }}
@@ -31,12 +30,11 @@
                     <tr><td>Pertnyataan </td> <td> : </td><td>{{ data_laporan.pernyataan }}</td></tr>
                     </table>
                      <br>
-                    {{ wtf.form_field(validasi_laporan.validasi) }}
-                    {{ wtf.form_field(validasi_laporan.tolak) }}
                 </div>
             </div>
         </form>
         <hr style="color:#ffffff; background-color:#ffffff">
-        <button type="button" class="btn btn-light"><a  href="{{ url_for('validasi_laporan') }}" style="text-decoration: none; color: black">Kembali</a></button>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('laporan_divalidasi') }}" style="text-decoration: none; color: black">Kembali</a></button>
+        <input class="btn btn-default " type="button" value="print" onClick="window.print()"/>
     </div>
 {% endblock %}

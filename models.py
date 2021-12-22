@@ -42,3 +42,13 @@ class DataLaporan(db.Model):
 
     def __repr__(self):
         return "{} - {}".format(self.nik, self.nama)
+
+class Admin(db.Model):
+    __tablename__ = 'admin'
+    id = db.Column(db.String(30), primary_key=True)
+    username = db.Column(db.String(30), index=True)
+    password = db.Column(db.String(30), index=True)
+
+class ScheduleCounter(db.Model):
+    __tablename__ = 'counter'
+    counter = db.Column(db.Integer, primary_key=True)

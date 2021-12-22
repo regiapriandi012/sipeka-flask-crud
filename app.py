@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for
-from form import InputLaporan, InputKtp, CekKtp, CekLaporan, ValidasiLaporan, ValidasiKTP, TolakLaporan, TolakKTP
+from form import InputLaporan, InputKtp, CekKtp, CekLaporan, ValidasiLaporan, ValidasiKTP
 from flask_bootstrap import Bootstrap
-from models import db, DataKtp, DataLaporan
+from models import db, DataKtp, DataLaporan, ScheduleCounter
 from datetime import datetime, timedelta
 from schedule import schedule
 date = datetime.today() + timedelta(days=1)
@@ -174,36 +174,94 @@ def validasi_laporan():
 def validasi_ktp_data(nik):
     data_ktp = DataKtp.query.get(nik)
     validasi_ktp = ValidasiKTP()
-    tolak_ktp = TolakLaporan()
-    counter = 1
     if validasi_ktp.is_submitted():
-        try:
-            jadwal = schedule[counter]
-            data_ktp = DataKtp.query.get(nik)
-            data_ktp.status_validasi = "Data Berhasil Divalidasi, Selanjutnya Datang ke Kantor Kecamatan pada pukul {} tanggal {}".format(jadwal, date.date())
-            db.session.commit()
-            return redirect(url_for("accept_data_ktp", nik=nik, _external=True))
-        except:
-            db.session.rollback()
-        counter += 1
-    elif tolak_ktp.is_submitted():
-        return redirect(url_for("decline_data_ktp", nik=nik, _external=True))
-    return render_template("validasiKTP_data.html", data_ktp=data_ktp, validasi_ktp=validasi_ktp, tolak_ktp=tolak_ktp)
+        if validasi_ktp.validasi.data:
+            try:
+                data_ktp = DataKtp.query.get(nik)
+                data_ktp.status_validasi = "Data Berhasil Divalidasi, selanjutnya silahkan datang ke kantor kecamatan banjarharjo mulai pukul 08:00 sampai pukul 16:00"
+                db.session.commit()
+                return redirect(url_for("accept_data_ktp", nik=nik, _external=True))
+            except:
+                db.session.rollback()
+        elif validasi_ktp.tolak.data:
+            try:
+                data_ktp = DataKtp.query.get(nik)
+                data_ktp.status_validasi = "Data Ditolak, silahkan untuk Update Data dan Input Data dengan benar"
+                db.session.commit()
+                return redirect(url_for("decline_data_ktp", nik=nik, _external=True))
+            except:
+                db.session.rollback()
+    return render_template("validasiKTP_data.html", data_ktp=data_ktp, validasi_ktp=validasi_ktp)
 
 @app.route("/admin/validasi/laporan/<nik>", methods=['GET', 'POST'])
 def validasi_laporan_data(nik):
     data_laporan = DataLaporan.query.get(nik)
-    return render_template("validasiLaporan_data.html", data_laporan=data_laporan)
+    validasi_laporan = ValidasiLaporan()
+    if validasi_laporan.is_submitted():
+        if validasi_laporan.validasi.data:
+            try:
+                data_laporan = DataLaporan.query.get(nik)
+                data_laporan.status_validasi = "Data Berhasil Divalidasi, Laporan telah kami terima, untuk selanjutnya akan pami proses lebih lanjut"
+                db.session.commit()
+                return redirect(url_for("accept_data_laporan", nik=nik, _external=True))
+            except:
+                db.session.rollback()
+        elif validasi_laporan.tolak.data:
+            try:
+                data_laporan = DataLaporan.query.get(nik)
+                data_laporan.status_validasi = "Data Ditolak, Laporan tidak diterima, silahkan untuk Update Data dan Input Data dengan benar"
+                db.session.commit()
+                return redirect(url_for("decline_data_laporan", nik=nik, _external=True))
+            except:
+                db.session.rollback()
+    return render_template("validasiLaporan_data.html", data_laporan=data_laporan, validasi_laporan=validasi_laporan)
+
 
 #-------------------------------------
 #validasi data dan tolak validasi data
 
 @app.route("/admin/validasi/ktp/<nik>/accept", methods=['GET', 'POST'])
 def accept_data_ktp(nik):
-    return render_template("inputLaporan_success.html")
+    data_ktp = DataKtp.query.get(nik)
+    return render_template("validasiKTP_accept.html", data_ktp=data_ktp)
 
 @app.route("/admin/validasi/ktp/<nik>/decline", methods=['GET', 'POST'])
 def decline_data_ktp(nik):
-    pass
+    data_ktp = DataKtp.query.get(nik)
+    return render_template("validasiKTP_decline.html", data_ktp=data_ktp)
+
+@app.route("/admin/validasi/laporan/<nik>/accept", methods=['GET', 'POST'])
+def accept_data_laporan(nik):
+    data_laporan = DataLaporan.query.get(nik)
+    return render_template("validasiLaporan_accept.html", data_laporan=data_laporan)
+
+@app.route("/admin/validasi/laporan/<nik>/decline", methods=['GET', 'POST'])
+def decline_data_laporan(nik):
+    data_laporan = DataLaporan.query.get(nik)
+    return render_template("validasiLaporan_decline.html", data_laporan=data_laporan)
+
+#----------------------------------
+#data divalidasi
+@app.route("/admin/validasi/ktp/divalidasi", methods=['GET', 'POST'])
+def ktp_divalidasi():
+    data_ktp = DataKtp.query.filter(DataKtp.status_validasi == 'Data Berhasil Divalidasi, selanjutnya silahkan datang ke kantor kecamatan banjarharjo mulai pukul 08:00 sampai pukul 16:00').all()
+    return render_template("dataKTP_divalidasi.html", data_ktp=data_ktp)
+
+@app.route("/admin/validasi/laporan/divalidasi", methods=['GET', 'POST'])
+def laporan_divalidasi():
+    data_laporan = DataLaporan.query.filter(DataLaporan.status_validasi == 'Data Berhasil Divalidasi, Laporan telah kami terima, untuk selanjutnya akan pami proses lebih lanjut').all()
+    return render_template("dataLaporan_divalidasi.html", data_laporan=data_laporan)
+
+@app.route("/admin/validasi/ktp/<nik>/divalidasi", methods=['GET', 'POST'])
+def ktp_divalidasi_data(nik):
+    data_ktp = DataKtp.query.get(nik)
+    return render_template("dataKTP_divalidasi_data.html", data_ktp=data_ktp)
+
+@app.route("/admin/validasi/laporan/<nik>/divalidasi", methods=['GET', 'POST'])
+def laporan_divalidasi_data(nik):
+    data_laporan = DataLaporan.query.get(nik)
+    return render_template("dataLaporan_divalidasi_data.html", data_laporan=data_laporan)
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8000)

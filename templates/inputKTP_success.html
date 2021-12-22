@@ -9,6 +9,7 @@
         <h3>Terimakasih Atas Partisipasi saudara {{ nama_form | title}}, </h3>
         <h3>Data KTP dengan NIK {{ nik_form }} Berhasil di input, </h3>
         <h3>Tunggu dalam beberapa menit, info selanjutnya dapat dilihat di:</h3>
-        <h3><a href="{{ url_for('cek_ktp') }}" style="color: #FFFFFF">Cek Status Validasi Data KTP</a></h3>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('cek_ktp') }}" style="text-decoration: none; color: black">Cek Validasi Data KTP</a></button>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('ktp') }}" style="text-decoration: none; color: black">Kembali Ke Input Data</a></button>
     </div>
 {% endblock %}

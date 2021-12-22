@@ -1,0 +1,12 @@
+{% extends "baseAdmin.html" %}
+{% block title %}Registration{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="text-center text-light" style="margin-top: 40px;">
+        <h3>Register Berhasil</h3>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('login_admin') }}" style="text-decoration: none; color: black">Login</a></button>
+    </div>
+{% endblock %}

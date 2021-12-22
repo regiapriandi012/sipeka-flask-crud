@@ -1,12 +1,30 @@
-{% extends "baseAdmin.html" %}
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Login Admin{% endblock %}
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='loginAdmin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 {% block content %}
-    <div class="wrapper" data-aos="fade-up">
-        <div class="logo"> <img src="{{ url_for('static', filename='img/banjar.png') }}" alt=""> </div>
-        <div class="text-center mt-4 name text-light"> Login Admin </div>
+    <div class="container" style="color:#ffffff">
+        <h3>Login Admin</h3>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <form action="" method="post" class="form" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ form_login.hidden_tag() }}
+                    {{ wtf.form_field(form_login.username, class='form-control') }}
+                    {{ wtf.form_field(form_login.password , class='form-control') }}
+                    <p>{{ form_login.remember() }} {{ form_login.remember.label }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                </div>
+                <div style="margin-left: 15px">
+                    {{ wtf.form_field(form_login.submit) }}
+                </div>
+            </div>
+        </form>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('index') }}" style="text-decoration: none; color: black">Kembali</a></button>
     </div>
 {% endblock %}

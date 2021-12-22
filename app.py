@@ -1,10 +1,9 @@
-from flask import Flask, render_template, redirect, url_for
-from form import InputLaporan, InputKtp, CekKtp, CekLaporan, ValidasiLaporan, ValidasiKTP
+from flask import Flask, render_template, redirect, url_for, request, flash
+from form import InputLaporan, InputKtp, CekKtp, CekLaporan, ValidasiLaporan, ValidasiKTP, LoginAdmin, RegistrationAdmin
 from flask_bootstrap import Bootstrap
-from models import db, DataKtp, DataLaporan, ScheduleCounter
-from datetime import datetime, timedelta
-from schedule import schedule
-date = datetime.today() + timedelta(days=1)
+from werkzeug.security import generate_password_hash, check_password_hash
+from models import db, DataKtp, DataLaporan, Admin
+from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -13,6 +12,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://doadmin:L8nQyZGwO5UiwcfG@sipeka
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 @app.before_first_request
 def create_table():
@@ -149,28 +150,52 @@ def cek_status_ktp_gagal():
 def cek_status_laporan_gagal():
     return render_template("cekLaporan_failed.html")
 
-#--------------------------------------------
-#halaman untuk Admin
+@login_manager.user_loader
+def load_user(user_id):
+    return Admin.query.get(int(user_id))
 
 @app.route("/admin/login", methods=['GET', 'POST'])
 def login_admin():
-    return render_template("loginAdmin.html")
+    login_admin = LoginAdmin(csrf_enabled=False)
+    if login_admin.validate_on_submit():
+        username = login_admin.username.data
+        remember = login_admin.remember.data
+        password = login_admin.password.data
+        user = Admin.query.filter(Admin.username == username).first()
+        if not user:
+            flash('Please check login details and try again', 'danger')
+            return redirect(url_for('login'))
+        if user.check_password(password):
+            flash('Successfully logged in', 'success')
+            login_user(user, remember=remember)
+            next = request.args.get('next')
+            return redirect(next) if next else redirect(url_for("admin", _external=True))
+        else:
+            return redirect(url_for('login_admin', _external=True))
+    return render_template("loginAdmin.html", form_login=login_admin)
+
+#--------------------------------------------
+#halaman untuk Admin
 
 @app.route("/admin", methods=['GET', 'POST'])
+@login_required
 def admin():
     return render_template("indexAdmin.html")
 
 @app.route("/admin/validasi/ktp", methods=['GET', 'POST'])
+@login_required
 def validasi_ktp():
     data_ktp = DataKtp.query.filter(DataKtp.status_validasi == 'Data Belum Divalidasi').all()
     return render_template("validasiKTP.html", data_ktp=data_ktp)
 
 @app.route("/admin/validasi/laporan", methods=['GET', 'POST'])
+@login_required
 def validasi_laporan():
     data_laporan = DataLaporan.query.filter(DataLaporan.status_validasi == 'Data Belum Divalidasi').all()
     return render_template("validasiLaporan.html", data_laporan=data_laporan)
 
 @app.route("/admin/validasi/ktp/<nik>", methods=['GET', 'POST'])
+@login_required
 def validasi_ktp_data(nik):
     data_ktp = DataKtp.query.get(nik)
     validasi_ktp = ValidasiKTP()
@@ -194,6 +219,7 @@ def validasi_ktp_data(nik):
     return render_template("validasiKTP_data.html", data_ktp=data_ktp, validasi_ktp=validasi_ktp)
 
 @app.route("/admin/validasi/laporan/<nik>", methods=['GET', 'POST'])
+@login_required
 def validasi_laporan_data(nik):
     data_laporan = DataLaporan.query.get(nik)
     validasi_laporan = ValidasiLaporan()
@@ -221,21 +247,25 @@ def validasi_laporan_data(nik):
 #validasi data dan tolak validasi data
 
 @app.route("/admin/validasi/ktp/<nik>/accept", methods=['GET', 'POST'])
+@login_required
 def accept_data_ktp(nik):
     data_ktp = DataKtp.query.get(nik)
     return render_template("validasiKTP_accept.html", data_ktp=data_ktp)
 
 @app.route("/admin/validasi/ktp/<nik>/decline", methods=['GET', 'POST'])
+@login_required
 def decline_data_ktp(nik):
     data_ktp = DataKtp.query.get(nik)
     return render_template("validasiKTP_decline.html", data_ktp=data_ktp)
 
 @app.route("/admin/validasi/laporan/<nik>/accept", methods=['GET', 'POST'])
+@login_required
 def accept_data_laporan(nik):
     data_laporan = DataLaporan.query.get(nik)
     return render_template("validasiLaporan_accept.html", data_laporan=data_laporan)
 
 @app.route("/admin/validasi/laporan/<nik>/decline", methods=['GET', 'POST'])
+@login_required
 def decline_data_laporan(nik):
     data_laporan = DataLaporan.query.get(nik)
     return render_template("validasiLaporan_decline.html", data_laporan=data_laporan)
@@ -243,25 +273,69 @@ def decline_data_laporan(nik):
 #----------------------------------
 #data divalidasi
 @app.route("/admin/validasi/ktp/divalidasi", methods=['GET', 'POST'])
+@login_required
 def ktp_divalidasi():
     data_ktp = DataKtp.query.filter(DataKtp.status_validasi == 'Data Berhasil Divalidasi, selanjutnya silahkan datang ke kantor kecamatan banjarharjo mulai pukul 08:00 sampai pukul 16:00').all()
     return render_template("dataKTP_divalidasi.html", data_ktp=data_ktp)
 
 @app.route("/admin/validasi/laporan/divalidasi", methods=['GET', 'POST'])
+@login_required
 def laporan_divalidasi():
     data_laporan = DataLaporan.query.filter(DataLaporan.status_validasi == 'Data Berhasil Divalidasi, Laporan telah kami terima, untuk selanjutnya akan pami proses lebih lanjut').all()
     return render_template("dataLaporan_divalidasi.html", data_laporan=data_laporan)
 
 @app.route("/admin/validasi/ktp/<nik>/divalidasi", methods=['GET', 'POST'])
+@login_required
 def ktp_divalidasi_data(nik):
     data_ktp = DataKtp.query.get(nik)
     return render_template("dataKTP_divalidasi_data.html", data_ktp=data_ktp)
 
 @app.route("/admin/validasi/laporan/<nik>/divalidasi", methods=['GET', 'POST'])
+@login_required
 def laporan_divalidasi_data(nik):
     data_laporan = DataLaporan.query.get(nik)
     return render_template("dataLaporan_divalidasi_data.html", data_laporan=data_laporan)
 
+#-----------------------------------
+#Secret Register
+@app.route("/admin/register", methods=['GET', 'POST'])
+@login_required
+def secret_register():
+    form_register = RegistrationAdmin(csrf_enabled=False)
+    if form_register.validate_on_submit():
+        try:
+            username = form_register.username.data
+            name = form_register.name.data
+            email = form_register.email.data
+            password = form_register.password.data
+            user = Admin(username=username, name=name, email=email)
+            user.set_password(password)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for("secret_register_accept", _external=True))
+        except:
+            db.session.rollback()
+            return redirect(url_for("secret_register_decline", _external=True))
+    return render_template("secret_register.html", form_register=form_register)
+
+@app.route("/admin/register/accept", methods=['GET', 'POST'])
+@login_required
+def secret_register_accept():
+    return render_template("register_accept.html")
+
+@app.route("/admin/register/decline", methods=['GET', 'POST'])
+@login_required
+def secret_register_decline():
+    return render_template("register_decline.html")
+
+#--------------------
+#logout
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash('You were logged out')
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8000)

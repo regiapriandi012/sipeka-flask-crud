@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, TextAreaField, RadioField, SelectField
-from wtforms.validators import DataRequired, Length, Regexp
+from wtforms import SubmitField, StringField, TextAreaField, RadioField, SelectField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Regexp, EqualTo, Email
 
 class InputKtp(FlaskForm):
     nik = StringField("NIK", validators=[DataRequired(), Length(min=16, max=16), Regexp(regex='^[0-9]*$')])
@@ -93,3 +93,17 @@ class ValidasiKTP(FlaskForm):
 class ValidasiLaporan(FlaskForm):
     validasi = SubmitField("Validasi", validators=[DataRequired()])
     tolak = SubmitField("Tolak", validators=[DataRequired()])
+
+class LoginAdmin(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    remember = BooleanField('Remember Me')
+    submit = SubmitField("Login", validators=[DataRequired()])
+
+class RegistrationAdmin(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField("Register", validators=[DataRequired()])

@@ -487,7 +487,7 @@ def update_data_ktp_divalidasi_delete(nik, nama):
         db.session.rollback()
     return render_template("dataKTP_divalidasi_delete.html", nama_form=nama, nik_form=nik)
 
-@app.route("/admin/validasi/ktp/<nik>/<nama>/divalidasi/delete/success", methods=['GET', 'POST'])
+@app.route("/admin/validasi/laporan/<nik>/<nama>/divalidasi/delete/success", methods=['GET', 'POST'])
 @login_required
 def update_data_laporan_divalidasi_delete(nik, nama):
     data_laporan = DataLaporan.query.get(nik)

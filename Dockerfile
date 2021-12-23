@@ -2,6 +2,9 @@
 
 FROM python:3.8-slim-buster
 
+RUN apt-get update \
+    && apt-get install python-mysqldb
+
 WORKDIR /app
 
 COPY requirements.txt requirements.txt

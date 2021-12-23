@@ -3,7 +3,7 @@
 FROM python:3.8-slim-buster
 
 RUN apt-get update \
-    && apt-get install python-mysqldb
+    && apt-get -y install python-mysqldb
 
 WORKDIR /app
 

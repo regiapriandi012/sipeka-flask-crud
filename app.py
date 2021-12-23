@@ -465,16 +465,19 @@ def laporan_divalidasi_data_update(nik, nama):
 #-----------------------------------------------
 #update
 @app.route("/admin/validasi/ktp/<nik>/<nama>/divalidasi/update/success", methods=['GET', 'POST'])
+@login_required
 def update_data_ktp_divalidasi_success(nik, nama):
     return render_template("dataKTP_divalidasi_update_success.html", nama_form=nama, nik_form=nik)
 
 @app.route("/admin/validasi/laporan/<nik>/<nama>/divalidasi/update/success", methods=['GET', 'POST'])
+@login_required
 def update_data_laporan_divalidasi_success(nik, nama):
     return render_template("dataLaporan_divalidasi_update_success.html", nama_form=nama, nik_form=nik)
 
 #------------------------------------------------
 #delete
 @app.route("/admin/validasi/ktp/<nik>/<nama>/divalidasi/delete/success", methods=['GET', 'POST'])
+@login_required
 def update_data_ktp_divalidasi_delete(nik, nama):
     data_ktp = DataKtp.query.get(nik)
     try:
@@ -485,6 +488,7 @@ def update_data_ktp_divalidasi_delete(nik, nama):
     return render_template("dataKTP_divalidasi_delete.html", nama_form=nama, nik_form=nik)
 
 @app.route("/admin/validasi/ktp/<nik>/<nama>/divalidasi/delete/success", methods=['GET', 'POST'])
+@login_required
 def update_data_laporan_divalidasi_delete(nik, nama):
     data_laporan = DataLaporan.query.get(nik)
     try:

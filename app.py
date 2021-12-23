@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
-from form import InputLaporan, InputKtp, CekKtp, CekLaporan, ValidasiLaporan, ValidasiKTP, LoginAdmin, RegistrationAdmin
+from form import InputLaporan, InputKtp, CekKtp, CekLaporan, ValidasiLaporan, ValidasiKTP, LoginAdmin, RegistrationAdmin, InputKtpUpdate, InputLaporanUpdate
 from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, DataKtp, DataLaporan, Admin
@@ -141,6 +141,92 @@ def cek_status_ktp_sukses(nik, nama, status):
 @app.route("/inputlaporan/cekvalidasi/<nik>/<nama>/<status>", methods=['GET', 'POST'])
 def cek_status_laporan_sukses(nik, nama, status):
     return render_template("cekLaporan_success.html", nama_form=nama, nik_form=nik, status_form=status)
+
+@app.route("/inputktp/cekvalidasi/<nik>/<nama>/update", methods=['GET', 'POST'])
+def update_data_ktp_ditolak(nik, nama):
+    data_ktp = DataKtp.query.get(nik)
+    ktp_form = InputKtpUpdate(csrf_enabled=False)
+    if ktp_form.validate_on_submit():
+        ttl = ktp_form.ttl.data
+        jk = ktp_form.jk.data
+        alamat = ktp_form.alamat.data
+        rt = ktp_form.rt.data
+        rw = ktp_form.rw.data
+        desa = ktp_form.desa.data
+        kecamatan = "Banjarharjo"
+        kabupaten = "Brebes"
+        kewarganegaraan = "Indonesia"
+        pekerjaan = ktp_form.pekerjaan.data
+        status = ktp_form.status.data
+        notelf = ktp_form.notelf.data
+        surat_keterangan = ktp_form.surat_keterangan.data
+        status_validasi = "Data Belum Divalidasi"
+        #--------------------------------------------------
+        data_ktp = DataKtp.query.get(nik)
+        data_ktp.ttl = ttl
+        data_ktp.jk = jk
+        data_ktp.alamat = alamat
+        data_ktp.rt = rt
+        data_ktp.rw = rw
+        data_ktp.desa = desa
+        data_ktp.kecamatan = kecamatan
+        data_ktp.kabupaten = kabupaten
+        data_ktp.kewarganegaraan = kewarganegaraan
+        data_ktp.pekerjaan = pekerjaan
+        data_ktp.status = status
+        data_ktp.notelf = notelf
+        data_ktp.surat_keterangan = surat_keterangan
+        data_ktp.status_validasi = status_validasi
+        try:
+            db.session.commit()
+            return redirect(url_for("update_data_ktp_ditolak_success", nik=nik, nama=nama, _external=True))
+        except:
+            db.session.rollback()
+    return render_template("inputKTP_update.html", data_ktp=data_ktp, ktp_form=ktp_form)
+
+@app.route("/inputlaporan/cekvalidasi/<nik>/<nama>/update", methods=['GET', 'POST'])
+def update_data_laporan_ditolak(nik, nama):
+    data_laporan = DataLaporan.query.get(nik)
+    laporan_form = InputLaporanUpdate(csrf_enabled=False)
+    if laporan_form.validate_on_submit():
+        rt = laporan_form.rt.data
+        rw = laporan_form.rw.data
+        desa = laporan_form.desa.data
+        kecamatan = "Banjarharjo"
+        jk = laporan_form.jk.data
+        notelf = laporan_form.notelf.data
+        kategory = laporan_form.kategory.data
+        tanggal = laporan_form.tanggal.data
+        isilaporan = laporan_form.isilaporan.data
+        pernyataan = laporan_form.pernyataan.data
+        status_validasi = "Data Belum DiValidasi"
+        #-----------------------------------------------------------
+        data_laporan = DataLaporan.query.get(nik)
+        data_laporan.rt = rt
+        data_laporan.rw = rw
+        data_laporan.desa = desa
+        data_laporan.kecamatan = kecamatan
+        data_laporan.jk = jk
+        data_laporan.notelf = notelf
+        data_laporan.kategory = kategory
+        data_laporan.tanggal = tanggal
+        data_laporan.isilaporan = isilaporan
+        data_laporan.pertanyaan = pernyataan
+        data_laporan.status_validasi = status_validasi
+        try:
+            db.session.commit()
+            return redirect(url_for("update_data_laporan_ditolak_success", nik=nik, nama=nama, _external=True))
+        except:
+            db.session.rollback()
+    return render_template("inputLaporan_update.html", data_laporan=data_laporan, laporan_form=laporan_form)
+
+@app.route("/inputktp/cekvalidasi/<nik>/<nama>/update/success", methods=['GET', 'POST'])
+def update_data_ktp_ditolak_success(nik, nama):
+    return render_template("inputKTP_update_success.html", nama_form=nama, nik_form=nik)
+
+@app.route("/inputlaporan/cekvalidasi/<nik>/<nama>/update/success", methods=['GET', 'POST'])
+def update_data_laporan_ditolak_success(nik, nama):
+    return render_template("inputLaporan_update_success.html", nama_form=nama, nik_form=nik)
 
 @app.route("/inputktp/cekvalidasi/gagal", methods=['GET', 'POST'])
 def cek_status_ktp_gagal():

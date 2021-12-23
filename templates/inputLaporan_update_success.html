@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Update Success{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="text-center text-light" style="margin-top: 40px;">
+        <h3>Terimakasih, Update Data Laporan dengan Nama {{ nama_form | title}}, </h3>
+        <h3>Dan dengan NIK {{ nik_form }} Berhasil di Update, </h3>
+        <h3>Tunggu dalam beberapa menit, info selanjutnya dapat dilihat di:</h3>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('cek_ktp') }}" style="text-decoration: none; color: black">Cek Validasi Data KTP</a></button>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('index') }}" style="text-decoration: none; color: black">Kembali Ke Halaman Utama</a></button>
+    </div>
+{% endblock %}

@@ -9,6 +9,9 @@
         <h3>Data Laporan atas nama {{ nama_form | title }}, </h3>
         <h3>Dengan NIK {{ nik_form }}, </h3>
         <h3>Status: {{ status_form }}</h3>
+        {% if status_form == "Data Ditolak, Laporan tidak diterima, silahkan untuk Update Data dan Input Data dengan benar" %}
+            <button type="button" class="btn btn-light"><a  href="{{ url_for('update_data_laporan_ditolak', nik=nik_form, nama=nama_form) }}" style="text-decoration: none; color: black">Update Data</a></button>
+        {% endif %}
         <button type="button" class="btn btn-light"><a  href="{{ url_for('cek_laporan') }}" style="text-decoration: none; color: black">Kembali Ke Cek Data</a></button>
     </div>
 {% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Input KTP{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container" style="color:#ffffff">
+        <h3>Input Data KTP</h3>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <form action="" method="post" class="form" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ ktp_form.csrf_token() }}
+                    {{ wtf.form_field(ktp_form.nik, class='form-control', placeholder=data_ktp.nik, disabled=True) }}
+                    {{ wtf.form_field(ktp_form.nama , class='form-control', placeholder=data_ktp.nama, disabled=True) }}
+                    {{ wtf.form_field(ktp_form.ttl , class='form-control', placeholder='Contoh. Brebes, 31 Januari 2001') }}
+                    <p>Jenis Kelamin</p>
+                    {{ wtf.form_field(ktp_form.jk , class='form-control') }}
+                    {{ wtf.form_field(ktp_form.alamat , class='form-control', placeholder='Contoh. Desa Sindangheula') }}
+                    {{ wtf.form_field(ktp_form.rt , class='form-control', placeholder='Contoh. 002') }}
+                    {{ wtf.form_field(ktp_form.rw , class='form-control', placeholder='Contoh. 001') }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ wtf.form_field(ktp_form.desa , class='form-control') }}
+                    {{ wtf.form_field(ktp_form.kecamatan , class='form-control', placeholder='Banjarharjo', disabled=True) }}
+                    {{ wtf.form_field(ktp_form.kabupaten , class='form-control', placeholder='Brebes', disabled=True)}}
+                    {{ wtf.form_field(ktp_form.kewarganegaraan , class='form-control', placeholder='Indonesia', disabled=True) }}
+                    {{ wtf.form_field(ktp_form.pekerjaan , class='form-control', placeholder='Contoh. Wiraswasta') }}
+                    {{ wtf.form_field(ktp_form.status , class='form-control', placeholder='Contoh. Belum Menikah') }}
+                    {{ wtf.form_field(ktp_form.notelf , class='form-control', placeholder='Contoh. 087794853484') }}
+                    {{ wtf.form_field(ktp_form.surat_keterangan, class='form-control') }}
+                </div>
+                <div style="margin-left: 15px">
+                    {{ wtf.form_field(ktp_form.submit) }}
+                </div>
+            </div>
+        </form>
+        <hr style="color:#ffffff; background-color:#ffffff">
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('index') }}" style="text-decoration: none; color: black">Kembali</a></button>
+    </div>
+{% endblock %}

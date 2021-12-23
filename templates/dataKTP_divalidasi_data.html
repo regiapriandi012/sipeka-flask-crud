@@ -36,7 +36,9 @@
             </div>
         </form>
         <hr style="color:#ffffff; background-color:#ffffff">
-        <button type="button" class="btn btn-light"><a  href="{{ url_for('ktp_divalidasi') }}" style="text-decoration: none; color: black">Kembali</a></button>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('ktp_divalidasi_data_update', nik=data_ktp.nik, nama=data_ktp.nama) }}" style="text-decoration: none; color: black">Update</a></button>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('update_data_ktp_divalidasi_delete', nik=data_ktp.nik, nama=data_ktp.nama) }}" style="text-decoration: none; color: black">Delete</a></button>
         <input class="btn btn-default " type="button" value="print" onClick="window.print()"/>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('ktp_divalidasi') }}" style="text-decoration: none; color: black">Kembali</a></button>
     </div>
 {% endblock %}

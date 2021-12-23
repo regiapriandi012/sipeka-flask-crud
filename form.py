@@ -143,7 +143,7 @@ class InputKtpUpdate(FlaskForm):
     notelf = StringField("Nomer Telefon", validators=[DataRequired(), Length(min=12, max=12), Regexp(regex='^[0-9]*$')])
     surket_choice = [("", "(Pilih)"),("Sudah Membuat", "Sudah Membuat"), ("Belum Membuat", "Belum Membuat")]
     surat_keterangan = SelectField("Surat Pengantar Dari Desa", choices=surket_choice, validators=[DataRequired()])
-    submit = SubmitField("Input Data", validators=[DataRequired()])
+    submit = SubmitField("Update Data", validators=[DataRequired()])
 
 class InputLaporanUpdate(FlaskForm):
     nik = StringField("NIK")
@@ -182,4 +182,4 @@ class InputLaporanUpdate(FlaskForm):
     tanggal = StringField("Tanggal Laporan (hari, tanggal/bulan/tahun)", validators=[DataRequired()])
     isilaporan = TextAreaField("Isi Laporan", validators=[DataRequired()])
     pernyataan = TextAreaField("Pernyataan Kebenaran Data", validators=[DataRequired()])
-    submit = SubmitField("Input Data", validators=[DataRequired()])
+    submit = SubmitField("Update Data", validators=[DataRequired()])

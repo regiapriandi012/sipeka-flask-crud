@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Update Success{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="text-center text-light" style="margin-top: 40px;">
+        <h3>Update Data Laporan {{ nik_form }} - {{ nama_form }} Berhasil</h3>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('laporan_divalidasi_data', nik=nik_form, nama=nama_form) }}" style="text-decoration: none; color: black">Kembali</a></button>
+    </div>
+{% endblock %}

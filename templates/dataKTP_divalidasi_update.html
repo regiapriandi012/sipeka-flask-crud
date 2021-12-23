@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block title %}Input KTP{% endblock %}
+{% block title %}Update Data KTP{% endblock %}
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -25,7 +25,7 @@
                 <div class="form-group col-md-6">
                     {{ wtf.form_field(ktp_form.desa , class='form-control') }}
                     {{ wtf.form_field(ktp_form.kecamatan , class='form-control', value='Banjarharjo', disabled=True) }}
-                    {{ wtf.form_field(ktp_form.kabupaten , class='form-control', valule='Brebes', disabled=True)}}
+                    {{ wtf.form_field(ktp_form.kabupaten , class='form-control', value='Brebes', disabled=True)}}
                     {{ wtf.form_field(ktp_form.kewarganegaraan , class='form-control', value='Indonesia', disabled=True) }}
                     {{ wtf.form_field(ktp_form.pekerjaan , class='form-control', placeholder='Contoh. Wiraswasta') }}
                     {{ wtf.form_field(ktp_form.status , class='form-control', placeholder='Contoh. Belum Menikah') }}
@@ -38,6 +38,6 @@
             </div>
         </form>
         <hr style="color:#ffffff; background-color:#ffffff">
-        <button type="button" class="btn btn-light"><a  href="{{ url_for('index') }}" style="text-decoration: none; color: black">Kembali</a></button>
+        <button type="button" class="btn btn-light"><a  href="{{ url_for('ktp_divalidasi_data', nik=data_ktp.nik) }}" style="text-decoration: none; color: black">Kembali</a></button>
     </div>
 {% endblock %}

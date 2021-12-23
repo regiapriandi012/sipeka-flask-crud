@@ -58,7 +58,7 @@ class InputLaporan(FlaskForm):
         , ("025", "025"), ("026", "026"), ("027", "027"), ("028", "028"), ("029", "029"), ("030", "030")]
     rt = SelectField("RT", choices=rt_choices, validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
     rw = SelectField("RW", choices=rw_choices, validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
-    choice_desa = [("", "Pilih"),("Sindangheula", "Sindangheula"), ("Blandongan", "Blandongan"), ("Kertasari", "Kertasari"),
+    choice_desa = [("", "(Pilih)"),("Sindangheula", "Sindangheula"), ("Blandongan", "Blandongan"), ("Kertasari", "Kertasari"),
                    ("Bandungsari", "Bandungsari"), ("Cipajang", "Cipajang"), ("Penanggapan", "Penanggapan"),
                    ("Malahayu", "Malahayu"), ("Cikuya", "Cikuya"), ("Banjarharjo", "Banjarharjo"),
                    ("Parireja", "Parireja"), ("Cigadung", "Cigadung"), ("Tiwulandu", "Tiwulandu"),
@@ -164,7 +164,7 @@ class InputLaporanUpdate(FlaskForm):
         , ("025", "025"), ("026", "026"), ("027", "027"), ("028", "028"), ("029", "029"), ("030", "030")]
     rt = SelectField("RT", choices=rt_choices, validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
     rw = SelectField("RW", choices=rw_choices, validators=[DataRequired(), Length(min=3, max=3), Regexp(regex='^[0-9]*$')])
-    choice_desa = [("", "Pilih"),("Sindangheula", "Sindangheula"), ("Blandongan", "Blandongan"), ("Kertasari", "Kertasari"),
+    choice_desa = [("", "(Pilih)"),("Sindangheula", "Sindangheula"), ("Blandongan", "Blandongan"), ("Kertasari", "Kertasari"),
                    ("Bandungsari", "Bandungsari"), ("Cipajang", "Cipajang"), ("Penanggapan", "Penanggapan"),
                    ("Malahayu", "Malahayu"), ("Cikuya", "Cikuya"), ("Banjarharjo", "Banjarharjo"),
                    ("Parireja", "Parireja"), ("Cigadung", "Cigadung"), ("Tiwulandu", "Tiwulandu"),

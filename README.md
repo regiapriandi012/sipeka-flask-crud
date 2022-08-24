@@ -1,5 +1,18 @@
-## SIPEKA
+[![PyPI - Python](https://img.shields.io/pypi/pyversions/iconsdk?logo=pypi)](https://pypi.org/project/iconsdk)
+
+# SIPEKA - Sistem Pelayanan Kecamatan
 merupakan aplikasi Sistem Pelayanan Kecamatan berbasis Website, Aplikasi ini berfungsi untuk membantu masyarakat di Kecamatan terkait dalam melakukan pendaftaran KTP dan panduan secara Online
+
+### Requirements
+
+- Python 3.7 or later.
+
+### Installation
+
+```
+pip install requirements.txt
+python3 app.py
+```
 
 ### Halaman Index / Halaman User
 ![image](https://user-images.githubusercontent.com/62141316/150749808-a9560702-ffd7-4ab3-923f-fa9baf3413ed.png)

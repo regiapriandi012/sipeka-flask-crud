@@ -12,7 +12,7 @@ merupakan aplikasi Sistem Pelayanan Kecamatan berbasis Website, Aplikasi ini ber
 ```
 cd sipeka-flask-crud
 python3 -m venv venv  
-venv\Scripts\activate  
+source ./venv/bin/activate 
 pip install -r requirements.txt  
 flask run
 ```

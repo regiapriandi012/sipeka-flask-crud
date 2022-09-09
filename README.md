@@ -10,8 +10,10 @@ merupakan aplikasi Sistem Pelayanan Kecamatan berbasis Website, Aplikasi ini ber
 ### Installation
 
 ```
-cd Sipeka-Flask
-source bin/activate
+cd sipeka-flask-crud
+python3 -m venv venv  
+venv\Scripts\activate  
+pip install -r requirements.txt  
 flask run
 ```
 

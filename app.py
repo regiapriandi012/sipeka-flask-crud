@@ -4,11 +4,12 @@ from flask_bootstrap import Bootstrap
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, DataKtp, DataLaporan, Admin
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
+import os
 
 app = Flask(__name__)
 Bootstrap(app)
 app.config['SECRET_KEY'] = 'super secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://doadmin:L8nQyZGwO5UiwcfG@sipekaid-do-user-8822551-0.b.db.ondigitalocean.com:25060/data_sipeka'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 

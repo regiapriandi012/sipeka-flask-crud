@@ -1,4 +1,6 @@
-[![PyPI - Python](https://img.shields.io/pypi/pyversions/iconsdk?logo=pypi)](https://pypi.org/project/iconsdk)
+![](https://github.com/regiapriandi012/sipeka-flask-crud/actions/workflows/codeql.yml/badge.svg)
+![](https://github.com/regiapriandi012/sipeka-flask-crud/actions/workflows/dependency-review.yml/badge.svg)
+![](https://github.com/regiapriandi012/sipeka-flask-crud/actions/workflows/docker-image.yml/badge.svg)
 
 # SIPEKA - Sistem Pelayanan Kecamatan
 merupakan aplikasi Sistem Pelayanan Kecamatan berbasis Website, Aplikasi ini berfungsi untuk membantu masyarakat di Kecamatan terkait dalam melakukan pendaftaran KTP dan panduan secara online.

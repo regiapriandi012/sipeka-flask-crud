@@ -1,15 +1,24 @@
-# syntax=docker/dockerfile:1
+# Use the official Python image from the Docker Hub
 
-FROM python:3.8-slim-buster
+FROM python:3.8.2
 
-RUN apt-get update \
-    && apt-get -y install python3-mysqldb
+# Make a new directory to put our code in.
 
-WORKDIR /app
+RUN mkdir /code
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+# Change the working directory.
 
-COPY . .
+WORKDIR /code
+
+# Copy to code folder
+
+COPY . /code/
+
+# Install the requirements.
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Run the application:
 
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
